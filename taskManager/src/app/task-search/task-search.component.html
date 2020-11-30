@@ -1,0 +1,22 @@
+<div class="search-bar-header">
+  <div class="search-bar">
+    <img class="search-icon" src="../../assets/images/search.png">
+    <input [(ngModel)]="searchText" type="text" class="search-option" placeholder="Search task">
+</div>
+</div>
+<div class="search-bar-body" *ngIf="restApiCallsDataService.taskFetchCompleted">
+  <div *ngFor="let task of restApiCallsDataService.tasks | searchByTask : searchText " class="fullwidth-fullheight">
+    <div class="tile">
+      <div class="title-holder">
+          <div class="tile-top-title">
+              <p>{{task.message}}</p>
+          </div>
+      </div>
+    <div class="data-holder">
+      <p class="tile-data">User: {{task.assigned_name}}</p>
+      <p class="tile-data">Priority: {{task.priority}}</p>
+      <p class="tile-data">Due_date:{{task.due_date | date}}</p>
+    </div>
+  </div>
+</div>
+

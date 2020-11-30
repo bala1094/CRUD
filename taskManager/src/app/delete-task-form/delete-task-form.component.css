@@ -1,0 +1,12 @@
+form {
+    /* width: 100%; */
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.panel {
+    width: 50%;
+    margin-top: 20px;
+    margin: 21vh 10vh 22vh 10vh;
+}

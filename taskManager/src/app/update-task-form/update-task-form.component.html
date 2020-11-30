@@ -1,0 +1,94 @@
+<!-- angular form is used for validation and custom form model is used for submitting data dirctly
+Angular form data is not used because the reference name and "name" attribute value cant be assigned to same value
+eg : check in namee section -->
+<div style="position: relative;">
+<form #createTaskForm="ngForm" (ngSubmit)="updateTask(taskDetail)" [ngClass]="{'blur-screen': submitted}">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h1 class="panel-title">Update Task</h1>
+    </div>
+
+    <div class="panel-body" style="text-align: left;">
+      <!-- task list -->
+      <div class="form-group" style="text-align: left;">
+        <label for="taskList">Select the task to be modified : </label>
+        <select [(ngModel)]="SelectTask"
+          (ngModelChange)="taskSelected()"
+          id="message"
+          name="message"
+          class="form-control">
+          <option>Select the Option</option>
+          <option *ngFor= "let task of restApiCallsDataService.tasks" [value]="task.message">{{task.message | titlecase}}</option>
+        </select>
+      </div>
+      <div *ngIf="enableTaskEditor">
+        <!-- task id -->
+        <div class="form-group">
+          <label class="control-label">Task ID : </label>
+          <input 
+            readonly 
+            placeholder="{{taskDetail.id}}" 
+            name="id" 
+            class="form-control"> 
+        </div>
+      <!-- assign task to -->
+        <div class="form-group" style="text-align: left;">
+          <label for="taskList">Assign To : </label>
+          <select [(ngModel)]="taskDetail.assigned_name"
+            id="user"
+            name="user"
+            class="form-control">
+            <option>{{taskDetail.assigned_name}}</option>
+            <option *ngFor= "let user of restApiCallsDataService.users | removeUser : taskDetail" [value]="user.name">{{user.name | titlecase}}</option>
+          </select>
+        </div>
+  <!-- due date -->
+        <div class="form-group" style="text-align: left;">
+          <label for="dueDate">Due Date : </label>
+          <input id="dueDate" type="text" bsDatepicker [(ngModel)]="taskDetail.due_date" [bsConfig]="datePickerConfig" name="due_date" class="form-control">
+        </div>
+        <!-- priority -->
+        <div class="form-group" style="text-align: left;">
+          <label class="control-label">Priority : </label>
+          <div class="form-control">
+            <label class="radio-inline">
+              <input id="priority" 
+              type="radio" 
+              [(ngModel)]="taskDetail.priority" 
+              value="1" 
+              name="priority"> 1
+            </label>
+            <label class="radio-inline">
+              <input id="priority" 
+              type="radio" 
+              [(ngModel)]="taskDetail.priority" 
+              value="2" 
+              name="priority"> 2
+            </label>
+            <label class="radio-inline">
+              <input id="priority" 
+              type="radio" 
+              [(ngModel)]="taskDetail.priority" 
+              value="3" 
+              name="priority"> 3
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- only after "required" fields(name) are entered, button will be enabled -->
+    <div class="panel-footer">
+      <button type="submit" class="btn btn-primary" [disabled]="!enableTaskEditor" >Modify</button>
+    </div>
+  </div>
+</form>
+
+<div class="pop-up" *ngIf="submitted">
+  <span class="log-header log-info">Successfully created new task</span>
+  <div class="okay-button">
+      <button class="yes-button" (click)="closeLogAlert()">ok</button>
+  </div>
+</div>
+</div>
+<ngx-spinner type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
+ 

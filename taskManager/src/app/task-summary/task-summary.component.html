@@ -1,0 +1,38 @@
+
+<div class="top-containter">
+  <nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/taskAllocation">Task allocation</a></li>
+      <li class="active"><a routerLink="/taskSummary">Tasks Summary</a></li>
+    </ul> 
+  </nav>
+</div>
+<div class="bottom-containter">
+	<div class="navigator">
+    <p class="nav-btn-p" 
+      (click)="openSummary('search')"
+      [ngClass]="{'btn-active': viewSelected === 'search'}">
+      Task Quick Search
+    </p>
+    <p class="nav-btn-p" 
+      (click)="openSummary('viewBy')"
+      [ngClass]="{'btn-active': viewSelected === 'viewBy'}">
+      View Tasks
+    </p>
+    <p class="nav-btn-p" 
+      (click)="openSummary('updatePriority')"
+      [ngClass]="{'btn-active': viewSelected === 'updatePriority'}">
+      Update Priority
+    </p>
+	</div> 
+	<div class="body">
+    <div [ngSwitch]="viewSelected">
+      <app-task-search *ngSwitchCase="'search'">
+      </app-task-search>
+      <app-view-by *ngSwitchCase="'viewBy'">
+      </app-view-by>
+      <app-update-priority *ngSwitchCase="'updatePriority'">
+      </app-update-priority>
+    </div>
+	</div>
+</div>

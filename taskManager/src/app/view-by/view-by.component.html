@@ -1,0 +1,23 @@
+<div class="header">
+  <div class="menu-holder">
+      <div class="button-containter" [ngClass]="{'button-view': sortValue === 'priority'}" (click)="sortBy('priority')">
+        Sort by priority</div>
+      <div class="button-containter" [ngClass]="{'button-view': sortValue === 'date'}" (click)="sortBy('date')">
+        Sort by date</div>
+  </div>
+</div>
+<div class="search-bar-body" *ngIf="restApiCallsDataService.taskFetchCompleted">
+  <div *ngFor="let task of restApiCallsDataService.tasks | sortByValue : sortValue" class="fullwidth-fullheight">
+    <div class="tile">
+      <div class="title-holder">
+          <div class="tile-top-title">
+              <p>{{task.message}}</p>
+          </div>
+      </div>
+    <div class="data-holder">
+      <p class="tile-data">User: {{task.assigned_name}}</p>
+      <p class="tile-data">Priority: {{task.priority}}</p>
+      <p class="tile-data">Due_date:{{task.due_date | date}}</p>
+    </div>
+  </div>
+</div>

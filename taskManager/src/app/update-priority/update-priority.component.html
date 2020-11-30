@@ -1,0 +1,94 @@
+<div class="update-body">
+  <div class="priority">
+    <div class="priority-header">
+      Priority 1
+    </div>
+    <div class="priority-body" 
+    *ngIf="restApiCallsDataService.taskFetchCompleted"
+    dndDropzone
+    dndEffectAllowed="copyMove"
+    (dndDrop)="onDrop1($event)">
+      <ng-container *ngFor="let task of restApiCallsDataService.tasks">
+        <ng-container *ngIf="task.priority == '1'">
+          <div class="fullwidth-fullheight"
+          [dndDraggable]=task>
+            <div class="tile">
+              <div class="title-holder">
+                  <div class="tile-top-title">
+                      <p>{{task.message}}</p>
+                  </div>
+              </div>
+              <div class="data-holder">
+                <p class="tile-data">User: {{task.assigned_name}}</p>
+                <p class="tile-data">Priority: {{task.priority}}</p>
+                <p class="tile-data">Due_date:{{task.due_date | date}}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div class="priority">
+    <div class="priority-header">
+      Priority 1
+    </div>
+    <div class="priority-body" 
+    *ngIf="restApiCallsDataService.taskFetchCompleted"
+    dndDropzone
+    dndEffectAllowed="copyMove"
+    (dndDrop)="onDrop2($event)">
+      <ng-container *ngFor="let task of restApiCallsDataService.tasks">
+        <ng-container *ngIf="task.priority == '2'">
+          <div class="fullwidth-fullheight"
+          [dndDraggable]=task>
+            <div class="tile">
+              <div class="title-holder">
+                  <div class="tile-top-title">
+                      <p>{{task.message}}</p>
+                  </div>
+              </div>
+              <div class="data-holder">
+                <p class="tile-data">User: {{task.assigned_name}}</p>
+                <p class="tile-data">Priority: {{task.priority}}</p>
+                <p class="tile-data">Due_date:{{task.due_date | date}}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div class="priority">
+    <div class="priority-header">
+      Priority 1
+    </div>
+    <div class="priority-body" 
+    *ngIf="restApiCallsDataService.taskFetchCompleted"
+    dndDropzone
+    dndEffectAllowed="copyMove"
+    (dndDrop)="onDrop3($event)">
+      <ng-container *ngFor="let task of restApiCallsDataService.tasks">
+        <ng-container *ngIf="task.priority == '3'">
+          <div class="fullwidth-fullheight"
+          [dndDraggable]=task>
+            <div class="tile">
+              <div class="title-holder">
+                  <div class="tile-top-title">
+                      <p>{{task.message}}</p>
+                  </div>
+              </div>
+              <div class="data-holder">
+                <p class="tile-data">User: {{task.assigned_name}}</p>
+                <p class="tile-data">Priority: {{task.priority}}</p>
+                <p class="tile-data">Due_date:{{task.due_date | date}}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>

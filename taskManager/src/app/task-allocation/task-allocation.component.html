@@ -1,0 +1,46 @@
+
+<div class="top-containter">
+  <nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+      <li class="active"><a routerLink="/taskAllocation">Task allocation</a></li>
+      <li><a routerLink="/taskSummary">Tasks Summary</a></li>
+    </ul> 
+  </nav>
+</div>
+<div class="bottom-containter">
+	<div class="navigator">
+    <p class="nav-btn-p" 
+      (click)="openForm('createTask')"
+      [ngClass]="{'btn-active': formSelected === 'createTask'}">
+      Create task
+    </p>
+    <p class="nav-btn-p" 
+      (click)="openForm('updateTask')"
+      [ngClass]="{'btn-active': formSelected === 'updateTask'}">
+      Update task
+    </p>
+    <p class="nav-btn-p"
+      (click)="openForm('deleteTask')"
+      [ngClass]="{'btn-active': formSelected === 'deleteTask'}">
+    Delete task
+  </p>
+	</div> 
+	<div class="body">
+    <div [ngSwitch]="formSelected">
+      <app-create-task-form *ngSwitchCase="'createTask'"
+        class="form-element"
+        (submitDone)=createTask($event)>
+      </app-create-task-form>
+      <app-update-task-form *ngSwitchCase="'updateTask'"
+        class="form-element"
+        (submitDone)=updateTask($event)>
+      </app-update-task-form>
+      <app-delete-task-form *ngSwitchCase="'deleteTask'"
+      class="form-element"
+      (submitDone)=deleteTask($event)>
+      </app-delete-task-form>
+    </div>
+	</div>
+</div>
+
+<ngx-spinner type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
