@@ -9,7 +9,7 @@ import { RestApiCallsDataService } from './../service/rest-api-calls-data.servic
 export class ViewByComponent implements OnInit {
   sortValue: string;
   constructor(
-    private restApiCallsDataService: RestApiCallsDataService
+    public restApiCallsDataService: RestApiCallsDataService
   ) { }
 
   ngOnInit(

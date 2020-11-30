@@ -11,7 +11,7 @@ import { RestApiCallsDataService } from './../service/rest-api-calls-data.servic
 export class UpdatePriorityComponent implements OnInit {
 
   constructor(
-    private restApiCallsDataService: RestApiCallsDataService,
+    public restApiCallsDataService: RestApiCallsDataService,
   ) { }
 
   ngOnInit() {

@@ -18,7 +18,7 @@ export class RestApiCallsDataService {
  userFetchCompleted: boolean;
   constructor(
     private http: HttpClient,
-    private spinner: NgxSpinnerService,
+    public spinner: NgxSpinnerService,
   ) {
     this.taskFetchCompleted = false;
     this.userFetchCompleted = false;

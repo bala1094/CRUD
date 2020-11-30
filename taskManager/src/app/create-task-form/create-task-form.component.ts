@@ -21,7 +21,7 @@ export class CreateTaskFormComponent implements OnInit {
     dueDate: null
   };
   constructor(
-    private restApiCallsDataService: RestApiCallsDataService,
+    public restApiCallsDataService: RestApiCallsDataService,
   ) {
     this.datePickerConfig = Object.assign({}, {containerClass : 'theme-dark-blue'}); // copies the enumurated src property
    }

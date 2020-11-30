@@ -9,7 +9,7 @@ import { RestApiCallsDataService } from './../service/rest-api-calls-data.servic
 })
 export class TaskSearchComponent implements OnInit {
   searchText: string;
-  constructor(private restApiCallsDataService: RestApiCallsDataService) { }
+  constructor(public restApiCallsDataService: RestApiCallsDataService) { }
 
   ngOnInit() {
   }

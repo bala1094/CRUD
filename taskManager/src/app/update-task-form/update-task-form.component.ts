@@ -29,8 +29,8 @@ export class UpdateTaskFormComponent implements OnInit {
   SelectTask: String;
 
   constructor(
-    private restApiCallsDataService: RestApiCallsDataService,
-    private spinner: NgxSpinnerService,
+    public restApiCallsDataService: RestApiCallsDataService,
+    public spinner: NgxSpinnerService,
   ) {
     this.datePickerConfig = Object.assign({}, {containerClass : 'theme-dark-blue'}); // copies the enumurated src property
    }

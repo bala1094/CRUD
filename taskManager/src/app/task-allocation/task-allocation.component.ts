@@ -13,8 +13,8 @@ export class TaskAllocationComponent implements OnInit {
   processCompleted: boolean;
   formSelected: string;
   constructor(
-    private restApiCallsDataService: RestApiCallsDataService,
-    private spinner: NgxSpinnerService,
+    public restApiCallsDataService: RestApiCallsDataService,
+    public spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit() {

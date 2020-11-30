@@ -14,8 +14,8 @@ export class DeleteTaskFormComponent implements OnInit {
   @Output() submitDone = new EventEmitter();
 
   constructor(
-    private restApiCallsDataService: RestApiCallsDataService,
-    private spinner: NgxSpinnerService,
+    public restApiCallsDataService: RestApiCallsDataService,
+    public spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit() {
