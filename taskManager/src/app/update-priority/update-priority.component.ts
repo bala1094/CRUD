@@ -38,7 +38,7 @@ export class UpdatePriorityComponent implements OnInit {
       const sendData = {
         message : recivedData.message,
         due_date: recivedData.due_date,
-        priority: 1,
+        priority: 2,
         assigned_to: recivedData.assigned_to,
         taskid: recivedData.id
       };
@@ -53,7 +53,7 @@ export class UpdatePriorityComponent implements OnInit {
       const sendData = {
         message : recivedData.message,
         due_date: recivedData.due_date,
-        priority: 1,
+        priority: 3,
         assigned_to: recivedData.assigned_to,
         taskid: recivedData.id
       };
