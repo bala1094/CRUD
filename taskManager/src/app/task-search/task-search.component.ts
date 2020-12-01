@@ -15,6 +15,5 @@ export class TaskSearchComponent implements OnInit {
   }
 
   searching() {
-    console.log('temp');
   }
 }

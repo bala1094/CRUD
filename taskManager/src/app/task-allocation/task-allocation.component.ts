@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { RestApiCallsDataService } from './../service/rest-api-calls-data.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-task-allocation',
@@ -10,16 +9,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class TaskAllocationComponent implements OnInit {
 
-  processCompleted: boolean;
   formSelected: string;
   constructor(
     public restApiCallsDataService: RestApiCallsDataService,
-    public spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit() {
     this.formSelected = 'createTask';
-    this.processCompleted = false;
   }
 
   openForm(formType) {
@@ -45,7 +41,7 @@ export class TaskAllocationComponent implements OnInit {
   }
 
   createTask(formData) {
-    this.spinner.show();
+    this.restApiCallsDataService.spinner.show();
     let tempUser;
     if (formData.assigned_name) {
       tempUser = this.restApiCallsDataService.users.find( element => {
@@ -63,15 +59,13 @@ export class TaskAllocationComponent implements OnInit {
       priority: formData.priority,
       assigned_to: tempUser.id
     };
-    console.log(sendData);
     this.restApiCallsDataService.createTask(sendData, () => {
       this.restApiCallsDataService.getTasks();
-      this.processCompleted = true;
     });
   }
 
   updateTask(formData) {
-    this.spinner.show();
+    this.restApiCallsDataService.spinner.show();
     let tempUser;
     if (formData.assigned_name) {
       tempUser = this.restApiCallsDataService.users.find( element => {
@@ -88,20 +82,21 @@ export class TaskAllocationComponent implements OnInit {
     };
     this.restApiCallsDataService.updateTask(sendData, () => {
       this.restApiCallsDataService.getTasks();
-      this.processCompleted = true;
     });
   }
 
   deleteTask (taskName) {
+    this.restApiCallsDataService.spinner.show();
     const taskToBeDeleted = this.restApiCallsDataService.tasks.find( element => {
       return element.message === taskName;
     });
-    this.restApiCallsDataService.deleteTask(taskToBeDeleted.id);
+    this.restApiCallsDataService.deleteTask(taskToBeDeleted.id,  () => {
+      this.restApiCallsDataService.getTasks();
+    } );
   }
 
   formatDate(date) {
     if (date) {
-      console.log(new Date(date));
       return (date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' 00:00:00');
     } else {
       return null;

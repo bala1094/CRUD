@@ -1,31 +1,39 @@
-<!-- angular form is used for validation and custom form model is used for submitting data dirctly
-Angular form data is not used because the reference name and "name" attribute value cant be assigned to same value
-eg : check in namee section -->
-
-<form #createTaskForm="ngForm" (ngSubmit)="deleteTask()">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h1 class="panel-title">Delete task</h1>
-    </div>
-
-    <div class="panel-body" style="text-align: left;">
-      <!-- task list -->
-      <div class="form-group" style="text-align: left;">
-        <label for="taskList">Select the task to be deleted : </label>
-        <select [(ngModel)]="SelectTask"
-          id="message"
-          name="message"
-          class="form-control">
-          <option>Select the task</option>
-          <option *ngFor= "let task of restApiCallsDataService.tasks" [value]="task.message">{{task.message | titlecase}}</option>
-        </select>
+<div style="position: relative;">
+  <form #createTaskForm="ngForm"
+   (ngSubmit)="deleteTask()"
+   [ngClass]="{'blur-screen': submitted}">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h1 class="panel-title">Delete task</h1>
       </div>
-<!-- only after "required" fields(name) are entered, button will be enabled -->
-    <div class="panel-footer">
-      <button type="submit" class="btn btn-primary" [disabled]="SelectTask === 'Select the task'" >Delete</button>
+
+      <div class="panel-body" style="text-align: left;">
+        <!-- task list -->
+        <div class="form-group" style="text-align: left;">
+          <label for="taskList">Select the task to be deleted : </label>
+          <select [(ngModel)]="SelectTask"
+            id="message"
+            name="message"
+            class="form-control">
+            <option>Select the task</option>
+            <option *ngFor= "let task of restApiCallsDataService.tasks" [value]="task.message">{{task.message | titlecase}}</option>
+          </select>
+        </div>
+  <!-- only after "required" fields(name) are entered, button will be enabled -->
+      <div class="panel-footer">
+        <button type="submit" class="btn btn-primary" [disabled]="SelectTask === 'Select the task'" >Delete</button>
+      </div>
+    </div>
+    </div>
+  </form>
+
+  <div class="pop-up" *ngIf="submitted">
+    <span class="log-info" *ngIf="!restApiCallsDataService.taskDeletionSuccess">Error: Task was not deleted</span>   
+    <span class="log-info" *ngIf="restApiCallsDataService.taskDeletionSuccess">Successfully deleted task</span>
+    <div class="okay-button">
+        <button class="yes-button" (click)="closeLogAlert()">ok</button>
     </div>
   </div>
-  </div>
-</form>
+</div>
 
  

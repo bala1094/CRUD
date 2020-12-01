@@ -16,6 +16,9 @@ export class RestApiCallsDataService {
  tasks;
  taskFetchCompleted: boolean;
  userFetchCompleted: boolean;
+ taskCreationSuccess: boolean;
+ taskUpdateSuccess: boolean;
+ taskDeletionSuccess: boolean;
   constructor(
     private http: HttpClient,
     public spinner: NgxSpinnerService,
@@ -41,45 +44,58 @@ export class RestApiCallsDataService {
     this.http.get(`${baseUrl}listusers`, httpOptions ).subscribe((res) => {
       const temp: any = res;
       this.users = temp.users;
-      console.log(this.users);
       this.userFetchCompleted = true;
       this.spinner.hide();
     });
   }
   createTask(formValue, callBack) {
-    this.spinner.show();
     const data = new FormData();
     data.append('message', formValue.message );
     data.append('due_date', formValue.due_date);
     data.append('priority', formValue.priority);
     data.append('assigned_to', formValue.assigned_to);
     this.http.post(`${baseUrl}create`, data, httpOptions).subscribe(res => {
-      console.log(res);
-      callBack();
+      const status: any = res;
+      if (status.status === 'error') {
+        this.taskCreationSuccess = false;
+        this.spinner.hide();
+      } else {
+        this.taskCreationSuccess = true;
+        callBack();
+      }
     });
   }
   updateTask(formValue, callBack) {
-    this.spinner.show();
     const data = new FormData();
-    console.log(formValue);
     data.append('message', formValue.message );
     data.append('due_date', formValue.due_date);
     data.append('priority', formValue.priority);
     data.append('assigned_to', formValue.assigned_to);
     data.append('taskid', formValue.taskid);
     this.http.post(`${baseUrl}update`, data, httpOptions).subscribe(res => {
-      console.log(res);
-      callBack();
+      const status: any = res;
+      if (status.status === 'error') {
+        this.taskUpdateSuccess = false;
+        this.spinner.hide();
+      } else {
+        this.taskUpdateSuccess = true;
+        callBack();
+      }
     });
 
   }
-  deleteTask(id) {
-    this.spinner.show();
+  deleteTask(id, callBack) {
     const data = new FormData();
     data.append('taskid', id );
     this.http.post(`${baseUrl}delete`, data , httpOptions).subscribe(res => {
-      console.log(res);
-      this.getTasks();
+      const status: any = res;
+      if (status.status === 'error') {
+        this.taskDeletionSuccess = false;
+        this.spinner.hide();
+      } else {
+        this.taskDeletionSuccess = true;
+        callBack();
+      }
     });
   }
 }

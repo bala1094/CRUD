@@ -1,27 +1,27 @@
-<!-- angular form is used for validation and custom form model is used for submitting data dirctly
-Angular form data is not used because the reference name and "name" attribute value cant be assigned to same value
-eg : check in namee section -->
+
 <div style="position: relative;">
-  <form #createTaskForm="ngForm" (ngSubmit)="createNewTask(taskDetails)" [ngClass]="{'blur-screen': submitted}">
+  <form [formGroup]="taskDetailFormGroup" 
+    (ngSubmit)="createNewTask()"
+    [ngClass]="{'blur-screen': submitted}">
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h1 class="panel-title">Task creation</h1>
       </div>
       <div class="panel-body" style="text-align: left;">
         <!-- message  -->
-        <!-- name attribute is used to register the particular form element value in angular formControl -->
         <div class="form-group"  
-          [class.has-error]="message.invalid && message.touched">
+          [class.has-error]="(taskDetailFormGroup.get('message').invalid && taskDetailFormGroup.get('message').touched) || messageExist">
             <label for="formMessage" class="control-label">Message : </label>
             <input 
-              required 
               id="formMessage" 
               type="text" 
-              [(ngModel)]="taskDetails.message" 
-              name="message" 
               class="form-control"
-              #message="ngModel"> 
-            <span  class="help-block" *ngIf="message.invalid && message.touched">Task message is required</span>
+              formControlName="message"
+              (blur)="checkInputMessage()"
+              (focus)="clearCheckInputMessage()"> 
+            <span  class="help-block" *ngIf="taskDetailFormGroup.get('message').hasError('required')">
+             Task message is must</span>
+             <span  class="help-block" *ngIf="messageExist">Message(task name)exist</span>
         </div>
   <!-- Priority -->
         <div class="form-group" style="text-align: left;">
@@ -30,49 +30,57 @@ eg : check in namee section -->
             <label class="radio-inline">
               <input id="priority" 
               type="radio" 
-              [(ngModel)]="taskDetails.priority" 
-              value="1" 
-              name="priority"> 1
+              formControlName="priority" 
+              value="1">
+              1
             </label>
             <label class="radio-inline">
               <input id="priority" 
               type="radio" 
-              [(ngModel)]="taskDetails.priority" 
-              value="2" 
-              name="priority"> 2
+              formControlName="priority" 
+              value="2">
+              2
             </label>
             <label class="radio-inline">
               <input id="priority" 
               type="radio" 
-              [(ngModel)]="taskDetails.priority" 
-              value="3" 
-              name="priority"> 3
+              formControlName="priority"
+              value="3">
+               3
             </label>
           </div>
         </div>
   <!-- Task assignment -->
         <div class="form-group" style="text-align: left;">
           <label for="assignedName">Assign To : </label>
-          <select [(ngModel)]="taskDetails.assigned_name" id="assignedName" name="assignedName" class="form-control">
-            <option *ngFor= "let user of restApiCallsDataService.users" [value]="user.name">{{user.name | titlecase}}</option>
+          <select formControlName="assigned_name" id="assignedName" class="form-control">
+            <option *ngFor= "let user of restApiCallsDataService.users"
+             [value]="user.name">
+             {{user.name | titlecase}}</option>
           </select>
         </div>
   <!-- datapicked used from ngx bootstrap -->
         <div class="form-group" style="text-align: left;">
           <label for="dueDate">Due Date : </label>
-          <input id="dueDate" type="text" bsDatepicker [(ngModel)]="taskDetails.dueDate" [bsConfig]="datePickerConfig" name="dueDate" class="form-control">
+          <input id="dueDate" type="text"
+           bsDatepicker formControlName="dueDate"
+           [bsConfig]="datePickerConfig"
+           class="form-control">
         </div>
       </div>
 
-  <!-- only after "required" fields(name) are entered, button will be enabled -->
       <div class="panel-footer">
-        <button type="submit" class="btn btn-primary" [disabled]="createTaskForm.invalid">Add</button>
+        <button type="submit"
+         class="btn btn-primary"
+         [disabled]="taskDetailFormGroup.get('message').invalid || messageExist">
+         Add</button>
       </div>
     </div>
   </form>
 
   <div class="pop-up" *ngIf="submitted">
-    <span class="log-info">Successfully created new task</span>
+    <span class="log-info" *ngIf="!restApiCallsDataService.taskCreationSuccess">New task not created</span>   
+    <span class="log-info" *ngIf="restApiCallsDataService.taskCreationSuccess">Successfully created new task</span>
     <div class="okay-button">
         <button class="yes-button" (click)="closeLogAlert()">ok</button>
     </div>

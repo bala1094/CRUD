@@ -1,6 +1,4 @@
-<!-- angular form is used for validation and custom form model is used for submitting data dirctly
-Angular form data is not used because the reference name and "name" attribute value cant be assigned to same value
-eg : check in namee section -->
+
 <div style="position: relative;">
 <form #createTaskForm="ngForm" (ngSubmit)="updateTask(taskDetail)" [ngClass]="{'blur-screen': submitted}">
   <div class="panel panel-primary">
@@ -76,7 +74,6 @@ eg : check in namee section -->
         </div>
       </div>
     </div>
-<!-- only after "required" fields(name) are entered, button will be enabled -->
     <div class="panel-footer">
       <button type="submit" class="btn btn-primary" [disabled]="!enableTaskEditor" >Modify</button>
     </div>
@@ -84,7 +81,8 @@ eg : check in namee section -->
 </form>
 
 <div class="pop-up" *ngIf="submitted">
-  <span class="log-header log-info">Successfully created new task</span>
+  <span class="log-info" *ngIf="!restApiCallsDataService.taskUpdateSuccess">Error: Task not updated</span>   
+  <span class="log-info" *ngIf="restApiCallsDataService.taskUpdateSuccess">Successfully updated the task</span>
   <div class="okay-button">
       <button class="yes-button" (click)="closeLogAlert()">ok</button>
   </div>

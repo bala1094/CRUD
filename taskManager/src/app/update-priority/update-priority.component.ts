@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DndDropEvent } from 'ngx-drag-drop';
-
 import { RestApiCallsDataService } from './../service/rest-api-calls-data.service';
 @Component({
   selector: 'app-update-priority',
@@ -27,6 +25,7 @@ export class UpdatePriorityComponent implements OnInit {
         assigned_to: recivedData.assigned_to,
         taskid: recivedData.id
       };
+      this.restApiCallsDataService.spinner.show();
       this.restApiCallsDataService.updateTask(sendData, () => {
         this.restApiCallsDataService.getTasks();
       });
@@ -42,6 +41,7 @@ export class UpdatePriorityComponent implements OnInit {
         assigned_to: recivedData.assigned_to,
         taskid: recivedData.id
       };
+      this.restApiCallsDataService.spinner.show();
       this.restApiCallsDataService.updateTask(sendData, () => {
         this.restApiCallsDataService.getTasks();
       });
@@ -57,6 +57,7 @@ export class UpdatePriorityComponent implements OnInit {
         assigned_to: recivedData.assigned_to,
         taskid: recivedData.id
       };
+      this.restApiCallsDataService.spinner.show();
       this.restApiCallsDataService.updateTask(sendData, () => {
         this.restApiCallsDataService.getTasks();
       });

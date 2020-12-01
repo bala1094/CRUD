@@ -42,7 +42,6 @@ export class UpdateTaskFormComponent implements OnInit {
   }
 
   updateTask(taskDetails) {
-    console.log(taskDetails);
     this.submitDone.emit(taskDetails);
     this.enableTaskEditor = false;
     this.submitted = true;
@@ -50,11 +49,9 @@ export class UpdateTaskFormComponent implements OnInit {
   }
 
   taskSelected() {
-    console.log(this.taskDetail.message);
     if (this.SelectTask === 'Select the Option') {
       this.enableTaskEditor = false;
     } else {
-      console.log(this.restApiCallsDataService.users);
       this.taskDetail =  this.restApiCallsDataService.tasks.find(element => {
         if (element.message.toLowerCase() === this.SelectTask.toLowerCase()) {
           this.enableTaskEditor = true;
@@ -70,5 +67,6 @@ export class UpdateTaskFormComponent implements OnInit {
   }
   closeLogAlert() {
     this.submitted = false;
+    this.restApiCallsDataService.taskUpdateSuccess = false;
   }
 }
