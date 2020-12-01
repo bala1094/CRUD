@@ -48,7 +48,7 @@ export class CreateTaskFormComponent implements OnInit {
   }
 
   createNewTask() {
-    console.log(this.taskDetailFormGroup.value);
+    // console.log(this.taskDetailFormGroup.value);
     this.submitDone.emit(this.taskDetailFormGroup.value);
     this.taskDetailFormGroup.reset({
       message: '',
