@@ -11,7 +11,7 @@
         <!-- message  -->
         <div class="form-group"  
           [class.has-error]="(taskDetailFormGroup.get('message').invalid && taskDetailFormGroup.get('message').touched) || messageExist">
-            <label for="formMessage" class="control-label">Message : </label>
+            <label for="formMessage" class="control-label">Task Name(message) : </label>
             <input 
               id="formMessage" 
               type="text" 
@@ -20,8 +20,8 @@
               (blur)="checkInputMessage()"
               (focus)="clearCheckInputMessage()"> 
             <span  class="help-block" *ngIf="taskDetailFormGroup.get('message').hasError('required')">
-             Task message is must</span>
-             <span  class="help-block" *ngIf="messageExist">Message(task name)exist</span>
+             Task name is must</span>
+             <span  class="help-block" *ngIf="messageExist">Task name(Message)exist</span>
         </div>
   <!-- Priority -->
         <div class="form-group" style="text-align: left;">
